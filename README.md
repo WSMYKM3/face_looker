@@ -1,6 +1,4 @@
-# Face Looker (Vanilla) 👁️
-
-Create an interactive face that follows the cursor using plain HTML, CSS, and JavaScript. No frameworks. No build step.
+go to https://wsmykm3.github.io/face_looker/ to test out!!  
 
 ## What this is
 
