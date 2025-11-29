@@ -1,0 +1,211 @@
+.face-tracker {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.face-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.1s ease-out;
+}
+
+.face-debug {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  pointer-events: none;
+}
+
+/* Game Layout */
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  width: 600px;
+  height: 600px;
+  margin-top: 80px;
+  /* Space for header */
+}
+
+.grid-cell {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.grid-cell.active {
+  background: rgba(0, 255, 0, 0.2);
+  border-color: #00cc00;
+}
+
+.grid-cell.wrong {
+  background: rgba(255, 0, 0, 0.2);
+  border-color: #cc0000;
+}
+
+.grid-cell.danger {
+  background: rgba(255, 0, 0, 0.6);
+  /* Stronger red for the danger zone */
+  border-color: #ff0000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.grid-cell.current {
+  background: rgba(255, 255, 0, 0.4);
+  /* Yellow for current position */
+  border-color: #ffd700;
+}
+
+.grid-cell.success {
+  background: rgba(0, 255, 0, 0.6) !important;
+  /* Green for success */
+  border-color: #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.center-cell {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Header & Controls */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 10px 0;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.score-board {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px;
+}
+
+.controls {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+
+button {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #555;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Overlay */
+#message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.message-content {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.message-content h2 {
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+/* Webcam Preview */
+#webcam-preview {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+  height: 225px; /* 16:9 aspect ratio (400 * 9/16 = 225) - landscape */
+  max-width: 400px;
+  max-height: 225px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#webcam-preview canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Fill the container while maintaining aspect ratio */
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .game-container {
+    width: 95vw;
+    height: 95vw;
+  }
+}

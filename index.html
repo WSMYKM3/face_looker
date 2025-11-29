@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Face Looker (Vanilla)</title>
+  <link rel="stylesheet" href="./FaceTracker.css">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+    }
+
+    .container {
+      width: 360px;
+      height: 360px;
+    }
+
+    .header {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: ui-sans-serif, system-ui, Arial, sans-serif;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Face Reflex Game</h1>
+    <p>Move your hand to the <strong>OPPOSITE</strong> direction of the face!</p>
+    <div class="score-board">Score: <span id="score">0</span> | Time: <span id="timer">0.0</span>s</div>
+  </div>
+
+  <div class="controls">
+    <button id="webcamButton">Enable Webcam Hand Control</button>
+    <button id="startGameButton" disabled>Start Game</button>
+  </div>
+
+  <div class="game-container">
+    <div class="grid-cell" data-pos="top-left"></div>
+    <div class="grid-cell" data-pos="top"></div>
+    <div class="grid-cell" data-pos="top-right"></div>
+
+    <div class="grid-cell" data-pos="left"></div>
+    <div class="grid-cell center-cell">
+      <div class="face-tracker" id="face" data-base-path="faces/" data-debug="false" data-manual="true"></div>
+    </div>
+    <div class="grid-cell" data-pos="right"></div>
+
+    <div class="grid-cell" data-pos="bottom-left"></div>
+    <div class="grid-cell" data-pos="bottom"></div>
+    <div class="grid-cell" data-pos="bottom-right"></div>
+  </div>
+
+  <div id="message-overlay" class="hidden">
+    <div class="message-content">
+      <h2 id="message-title">Game Over</h2>
+      <button id="restartButton">Try Again</button>
+    </div>
+  </div>
+
+  <!-- MediaPipe Hands & Camera Utils -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+  <script src="./face-tracker.js" defer></script>
+  <script src="./hand-control.js" defer></script>
+  <script src="./game.js" defer></script>
+</body>
+
+</html>
