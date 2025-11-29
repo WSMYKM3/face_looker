@@ -99,15 +99,29 @@ function onResults(results) {
             canvasCtx.fillRect(mirroredCol * cellW, row * cellH, cellW, cellH);
 
             // Map to game grid names
-            const colNames = ['left', 'center', 'right']; // 0=left, 1=center, 2=right (after mirroring)
-            const rowNames = ['top', '', 'bottom'];
-
+            // Handle special cases first: center cell, and middle column (top/bottom)
             let posName = '';
-            if (row === 1 && col === 1) posName = 'center';
-            else {
+            if (row === 1 && col === 1) {
+                posName = 'center';
+            } else if (row === 0 && col === 1) {
+                // Top row, center column = 'top'
+                posName = 'top';
+            } else if (row === 2 && col === 1) {
+                // Bottom row, center column = 'bottom'
+                posName = 'bottom';
+            } else if (row === 1 && col === 0) {
+                // Middle row, left column = 'left'
+                posName = 'left';
+            } else if (row === 1 && col === 2) {
+                // Middle row, right column = 'right'
+                posName = 'right';
+            } else {
+                // Corner positions: combine row and column names
+                const rowNames = ['top', '', 'bottom'];
+                const colNames = ['left', 'center', 'right'];
                 const v = rowNames[row];
                 const h = colNames[col];
-                posName = v && h ? `${v}-${h}` : (v || h);
+                posName = `${v}-${h}`;
             }
 
             // Dispatch custom event with grid position
